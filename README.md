@@ -11,7 +11,7 @@ The zipped folder Experimental_data_results.zip includes the experimental result
 with each approach's name. Inside each of these folders is the experimental data collected per benchmark function. Inide each folder, is an excel file with the data
 
 Colum 1 : Row 1 to Row 30  is the loop path coverage (%) per run.
-Colum 1 : Row 36 : You will find the average loop path overage over the 30 runs
+Colum 1 : Row 36 : You will find the mean of the average loop path overage over the 35 programs
 
 Colum 2 : Row 1 to Row 30  is the number of loop paths covered per run.
 Colum 2 : Row 36 : You will find the average number of loop paths covered over the 30 runs
