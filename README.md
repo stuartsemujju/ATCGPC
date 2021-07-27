@@ -2,7 +2,7 @@
 
 Source codes
 
-The zipped folder Source_code.zip  You will find source code for each approach.   In particular , you can find the source code with the corresponding instrumeted 
+The zipped folder Source_code.zip . You will find source code for each approach.   In particular , you can find the source code with the corresponding instrumented 
 benchmark function.
 
 Experimental_data_results
