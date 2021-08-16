@@ -3,12 +3,12 @@
 Source codes
 
 The zipped folder Source_code.zip . You will find source code for each approach.   In particular , you can find the source code with the corresponding instrumented 
-benchmark function.
+benchmark function. The source code involving many-objective search strategies as been built based on jMetal, a Java-based framework for multi-objective optimisation.
 
 Experimental_data_results
 
 The zipped folder Experimental_data_results.zip includes the experimental results obtained by each approach. After extracting the zipped folder, you will find more folders
-with each approach's name. Inside each of these folders is the experimental data collected per benchmark function. Inide each folder, is an excel file with the data
+with each approach's name. Inside each of these folders is the experimental data collected per benchmark function. Inside each folder, is an excel file with the data
 
 Colum 1 : Row 1 to Row 30  is the loop path coverage (%) per run.
 Colum 1 : Row 36 : You will find the mean of the average loop path overage over the 35 programs
