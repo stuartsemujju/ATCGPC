@@ -3,7 +3,7 @@
 Source codes
 
 The zipped folder Source_code.zip . You will find source code for each approach.   In particular , you can find the source code with the corresponding instrumented 
-benchmark function. The source code involving many-objective search strategies as been built based on jMetal, a Java-based framework for multi-objective optimisation.
+benchmark function. The source code involving many-objective search strategies has been built based on jMetal, a Java-based framework for multi-objective optimisation.
 
 Experimental_data_results
 
