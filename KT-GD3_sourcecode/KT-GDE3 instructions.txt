@@ -1,3 +1,5 @@
 To help othe researchers intergate our approach into their frameworks, we provide explanation of the code sections . Noe that the source code is not necessarily up to production quality as it would take alot of time and resources to build a production ready tool. However, for future work we plan to implement our approch in tool with a usable interface.
 
 The source code example provided is based on the instrumenataion program diamond 1-1. We explain the key functions of our proposed approach.
+
+For any further help, Kindy reach out to me at :  stuartsemujju@gmail.com to assist you integrate our approach in your frameworks
