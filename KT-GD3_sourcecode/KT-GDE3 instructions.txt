@@ -1,5 +1,29 @@
 To help othe researchers intergate our approach into their frameworks, we provide explanation of the code sections . Noe that the source code is not necessarily up to production quality as it would take alot of time and resources to build a production ready tool. However, for future work we plan to implement our approch in tool with a usable interface.
 
-The source code example provided is based on the instrumenataion program diamond 1-1. We explain the key functions of our proposed approach.
+The source code example provided is based on the instrumenataion program diamond_1-1.c. We explain the key functions of KT-GDE3. The functions can be fopund in the file Ktgde3.java
+
+
+Note that parameter 1 ,..., parameter n  indicates the function has 1 to n  input parameters
+
+enumeratePaths(parameter 1 , ... , parameter n ); // call function to generate the paths
+
+
+groupingPaths( );// // call function to group paths
+
+
+neighborset( parameter 1,..., parameter n ); // call function to create neighbor sets
+
+
+reuse_archivedsolutions (parameter 1 , ... , parameter n ); //call function to incoproate solutions to previosuly covered paths into new population when searching solutions for new target group of interest
+
+
+mutationCrossover (parameter 1 , ... , parameter n ); Perform MutaTion and crossover based on GDE3
+
+
+cornerSort(parameter 1 , ... , parameter n ); // call to function that first performs WEAK DOMINACE RELATION and then perfoms the CORNER-SORTING
+
+
+
+
 
 For any further help, Kindy reach out to me at :  stuartsemujju@gmail.com to assist you integrate our approach in your frameworks
