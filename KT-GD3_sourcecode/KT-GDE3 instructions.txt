@@ -26,4 +26,4 @@ cornerSort(parameter 1 , ... , parameter n ); // call to function that first per
 
 
 
-For any further help, Kindy reach out to me at :  stuartsemujju@gmail.com to assist you integrate our approach in your frameworks
+For any further help, please reach out to me at :  stuartsemujju@gmail.com to assist you integrate our approach in your frameworks
