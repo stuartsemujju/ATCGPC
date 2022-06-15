@@ -359,8 +359,8 @@ public class Ktgde3 {
 		for (int i = 0; i < 1; i++)
 
 		{
-			lb[i] = -100000;// lower bound
-			ub[i] = 100000;// upper bound
+			lb[i] = Integer.MIN_VALUE;// lower bound
+			ub[i] = Integer.MAX_VALUE;// upper bound
 		}
 		// run = 0;
 		while (run < RUN) {
