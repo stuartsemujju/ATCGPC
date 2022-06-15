@@ -37,34 +37,23 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
-
 import static java.util.stream.Collectors.*;
 
-//import LoopDE.Loop_PathDE.MyCallable;
-
 import java.util.Set;
-;
-
-//import com.google.common.collect.HashMultimap;
-//import com.google.common.collect.Multimap;
 
 /*Author Semujju Stuart Dereck*/
-public class Ktgde3{
+
+/**/
+public class Ktgde3 {
 
 	private static final int RUN = 30; // the number of the program runs. For simple test purpose i set it to one
 	private static final double F = 0.5;
 	private static final int bias = 10;
 	private static final int pop_num = 50; // the number of test cases
-	/// private static final int fun_num = 1; // the serial number of the target
-	/// benchmark function.
+
 	private static final int R = 10;
 	private static final int NODENUM = 2; // the number of the nodes/vertex in the target benchmark function.
-	// static boolean[][] visit = new boolean[NODENUM][4]; // '2' is for 'Yes'
-	// branch and 'No' branch.
-	// private static final int MCN = 300000; // the maximum test case number for a
-	// template.
-	// private static final int MainCN = 1000000000; // test cases to be used in a
-	// int bias = 10;
+
 	private static final int col = 0;
 
 	private static final int col_3 = 3;
@@ -74,17 +63,7 @@ public class Ktgde3{
 	static int[] average_coverage_count = new int[RUN];
 
 	private static final double Pc = 0.2;
-	// private static final double non_simpleid = 99.0; // identifier given to test
-	// case not traversing a path pattern in
-	// the group
-	// private static final double non_simpleid2 = 100.0;// identifier given to test
-	// case traversing a path pattern in the
-	// group
 
-	// private static final double non_simpleid = 99.0; // identifier given to test
-	// case not traversing a path in the group
-	// private static final double non_simpleid2 = 100.0;// identifier given to test
-	// case traversing a path in the group
 	private static final int PATHNUM = 32; // In this test bench mark there are 16 groups each with 32 paths
 	// private static int case_sum = 0;
 	private static int objective_size;
@@ -128,13 +107,6 @@ public class Ktgde3{
 	private static final int TOTAL_PATHNUM = 1024;
 
 	static int pattern_number = 5;
-	// static int[] path_id = new int[PATHNUM];
-	// static boolean[] status = new boolean[8];
-
-	// static double[][] fitness_matrix = new double[NODENUM][5];
-	// static int pattern_number = 3; // The simple loop pattern number of this
-	// benchmark is set to the first four 4
-	// iterations()
 
 	static LinkedHashMap<String, Boolean> temporary_path_holder = new LinkedHashMap<String, Boolean>();
 	static LinkedHashMap<String, Integer> pathcounter = new LinkedHashMap<String, Integer>();
@@ -143,7 +115,7 @@ public class Ktgde3{
 	public static Map<String, int[][]> dynamic_access = new HashMap<String, int[][]>();
 
 	// These are the identifiers(I.Ds) for each group/template based on the simple
-	// loop path pattern
+
 	static String template_1 = "aaaaa";
 	static String template_2 = "aaaab";
 	static String template_3 = "aaaba";
@@ -183,13 +155,6 @@ public class Ktgde3{
 	public static int totalpathcounter;
 	// ****************************************************************************************************************************************************************//
 
-	// static int[][] dynamic16;
-
-	// static int que = 1;
-	// static double start; // the beginning time of the program run(not used in
-	// this code)
-	// static double finish; // the finish time of the program run(not used in this
-	// code)
 	static int[] Cycle = new int[RUN];
 	static float[] coverage = new float[RUN];
 	static double[] runtime = new double[RUN];
@@ -200,17 +165,16 @@ public class Ktgde3{
 	public static int timeTaskCount = 0;
 	static int[][] convergencegraph = new int[16][RUN];
 	static String[] Bug_data = new String[RUN];
-	
-	static boolean bug_one = false; 
-	
+
+	static boolean bug_one = false;
+
 	static String bug_one_;
 
 	static String[] dynamo = { template_1, template_2, template_3, template_4, template_5, template_6, template_7,
 			template_8, template_9, template_10, template_11, template_12, template_13, template_14, template_15,
 			template_16, template_17, template_18, template_19, template_20, template_21, template_22, template_23,
 			template_24, template_25, template_26, template_27, template_28, template_29, template_30, template_31,
-			template_32 }; // this will be used later, currently not implemented
-
+			template_32 }; //
 	static String[] groupss_0 = { template_2, template_3, template_4, template_5, template_6, template_7, template_8,
 			template_9, template_10, template_11, template_12, template_13, template_14, template_15, template_16 }; // aaaaa
 																														// //template_1
@@ -222,11 +186,10 @@ public class Ktgde3{
 	// Here we create files(groups) to hold/store the number of similar paths in
 	// each separate group
 
-	static String location = "C:/Users/Stuart/Final/LPCF/Bench/"; //set location for finding bug report
-	
-	
+	static String location = "C:/Users/Stuart/Final/LPCF/Bench/"; // set location for finding bug report
+
 	static File bug_report = new File(location + "Diamond1bugreport.txt");
-	
+
 	static int bugrecord = 0;
 	static String buggypath;
 	static int input;
@@ -370,10 +333,10 @@ public class Ktgde3{
 	public static int[][] x = new int[pop_num][R];
 	public static int[][] v = new int[pop_num][R];
 
-	static int run = 0;
+	public static int[] lb = new int[R];// lower bound
+	public static int[] ub = new int[R];// upper bound
 
-	// static LinkedHashMap<String, Integer> itr1 = new LinkedHashMap<String,
-	// Integer>();
+	static int run = 0;
 
 	static LinkedHashMap<String, Boolean> paths = new LinkedHashMap<String, Boolean>();
 
@@ -386,74 +349,37 @@ public class Ktgde3{
 		char[] str = new char[k];
 
 		enumeratePaths(k, set, str, 0); // call function to generate the paths
-		init_Template();// function to create the groups of paths. // using the simple loop path pattern
+		groupingPaths();// function to create the groups of paths. // using the simple loop path pattern
 						// information
 
 		LinkedHashMap<String, List<String>> group_map = new LinkedHashMap<String, List<String>>();
 
-		List<String> neighbor_0 = new ArrayList<String>();
-		List<String> neighbor_1 = new ArrayList<String>();
-
-		for (int gr = 0; gr < groupss_0.length; gr++) {
-
-			neighbor_0.add(groupss_0[gr]);
-
-		} // populate neighbors starting with 0
-
-		for (int gr_1 = 0; gr_1 < groupss_1.length; gr_1++) {
-
-			neighbor_1.add(groupss_1[gr_1]);
-
-		} // populate neighbors starting with 1
-
-		List<String> group_0_list = new ArrayList<String>(); // aaa //template_1
-		List<String> group_1_list = new ArrayList<String>(); // bbb template_22
-
-		group_0_list.addAll(neighbor_0);
-
-		group_map.put(template_1, group_0_list);
-
-		group_1_list.addAll(neighbor_1);
-
-		group_map.put(template_32, group_1_list);
-
-		int[] lb = new int[R];// lower bound
-		int[] ub = new int[R];// upper bound
+		neighborset(group_map);
 
 		for (int i = 0; i < 1; i++)
 
 		{
-			lb[i] = Integer.MIN_VALUE;// lower bound
-			ub[i] = Integer.MAX_VALUE;// upper bound
+			lb[i] = -100000;// lower bound
+			ub[i] = 100000;// upper bound
 		}
-		//run = 0;
+		// run = 0;
 		while (run < RUN) {
 
 			// int group_counter = 0;
-			bug_one = false; 
-			point = -1;
+			bug_one = false;
 
 			x = new int[pop_num][R];
 			v = new int[pop_num][R];
 
-			LinkedHashMap<String, List<Double>> fitnessmaps = new LinkedHashMap<String, List<Double>>();
-			LinkedHashMap<String, List<Double>> fitnessmaps1 = new LinkedHashMap<String, List<Double>>();
-			LinkedHashMap<String, List<Double>> fitnessmaps2 = new LinkedHashMap<String, List<Double>>();
-			LinkedHashMap<String, List<Double>> fitnessmaps3 = new LinkedHashMap<String, List<Double>>();
-
-			LinkedHashMap<String, Integer> setrank1 = new LinkedHashMap<String, Integer>();
-			LinkedHashMap<String, Integer> setrank2 = new LinkedHashMap<String, Integer>();
-
-			LinkedHashMap<String, Integer> setrank3 = new LinkedHashMap<String, Integer>();
+			LinkedHashMap<String, Integer> setrank = new LinkedHashMap<String, Integer>();
 
 			List<String> updated_population = new ArrayList<String>();
 
 			List<String> offspring_population = new ArrayList<String>();
-			List<String> offspring_population2 = new ArrayList<String>();
 
 			List<String> single_population = new ArrayList<String>();
 
-			String traverse_template;
+			String traverse_template = "";
 
 			// the 2d arrays below hold the solutions to each respective group
 
@@ -591,16 +517,6 @@ public class Ktgde3{
 
 			totalpathcounter = 0;
 
-			// int obj_total = 0;
-
-			timeTaskCount = 0;
-
-			//Timer timer = new Timer();
-
-			//TimerTask task = new TimerTask() {};
-
-			//timer.schedule(task, 10000, 20000);
-
 			String getfinalpath;
 			String final_path_checker;
 
@@ -609,17 +525,11 @@ public class Ktgde3{
 				reset_All();
 				updated_population.clear();
 				offspring_population.clear();
-				offspring_population2.clear();
 				single_population.clear();
 				combined_maps.clear();
-				setrank1.clear();
-				setrank2.clear();
-				setrank3.clear();
-				bug_one = false; 
-				// fitnessmaps.clear();
-				// fitnessmaps1.clear();
-				// fitnessmaps2.clear();
-				// fitnessmaps3.clear();
+				setrank.clear();
+
+				bug_one = false;
 
 			}
 
@@ -632,1193 +542,21 @@ public class Ktgde3{
 					// x[i][j] =(int)(lb[j] + Math.random() * (ub[j] - lb[j]));
 				}
 
-				// case_num[run] = case_num[run] + 1 ; // test case number
-
-				/// total_case_num[run] = total_case_num[run] + 1; // here we start to count the
-				/// test case
-
 				getfinalpath = pathnum(x[i]); // path traversed by input x is returned
-
-				// //(" hereeeee " + getfinalpath);
 
 				traverse(getfinalpath, i);
 
 			}
 
-			long start_big_time = System.currentTimeMillis();
-			long wait_main_time = 300000;
-			long end_main_time = start_big_time + wait_main_time;
+			reuse_archivedsolutions(temporary_path_holder, dynamic_access, traverse_template, evaluated_status,
+					group_map, single_population, updated_population, offspring_population, setrank);
 
-			// case_num[run] = 0; // reset test case number assigned to each template
-
-			// iterator
-			// case_sum = 0;
-			// iterator
-
-			// Cycle[run] = 1;
-
-			// long start_big_time = System.currentTimeMillis();
-			// long wait_main_time = 600000;
-			// long end_main_time = start_big_time + wait_main_time;
-			for (int iterator = 0; iterator < 32; iterator++) { // iterator of all templates // checks to perform // is
-				// maximum id the group number. Here I take only one group for test purposes
-				// only // it already evaluated
-				temporary_path_holder.clear();
-				dynamic_access.clear();
-				// int infeasible_path = 0;
-
-				// selection of the group is based on the group with least number of remaining
-				// paths among all the other groups
-				// (in comparison of all the other paths)
-				int value;
-				String minKey = " ";
-				// String tempss_1 = " ";
-				int minValue = 0;
-
-				int count = 0;
-
-				Iterator<Map.Entry<String, Boolean>> iter = evaluated_status.entrySet().iterator();
-
-				while (iter.hasNext()) {
-
-					Map.Entry<String, Boolean> entry = iter.next();
-
-					if (entry.getValue() == true) {
-
-						iter.remove();
-
-					}
-
-				}
-
-				for (String key : evaluated_status.keySet()) {
-					count++;
-
-					if (count == 1) {
-
-						minKey = key;
-						minValue = (pathcounter.get(key));
-
-						break;
-					}
-				}
-
-				int counters = 0;
-
-				for (String key6 : evaluated_status.keySet()) {
-
-					counters++;
-
-					if (counters == 1) {
-
-						continue;
-					}
-
-					else {
-
-						// tempss_1 = key6;
-						value = pathcounter.get(key6);
-
-						if (value > minValue) {
-
-							minValue = value;
-							minKey = key6;
-						}
-					}
-
-				}
-
-				traverse_template = minKey;
-
-				evaluated_status.put(traverse_template, true);
-
-				try {
-					File fstream_temporary = new File(location + traverse_template + ".txt");
-					FileReader fileReader_ = new FileReader(fstream_temporary);
-					BufferedReader br_ = new BufferedReader(fileReader_);
-					String strLine_temporary;
-
-					while ((strLine_temporary = br_.readLine()) != null) {
-
-						// read files into map
-
-						if (!paths.get(strLine_temporary)) {
-
-							temporary_path_holder.put(strLine_temporary, false);
-						}
-					}
-					br_.close();
-				}
-
-				catch (Exception e) {
-				}
-
-				if (iterator > 0) {
-
-					for (int a = 0; a < PATHNUM; a++) {
-
-						if (statu_1[a]) {
-
-							for (int j = 0; j < R; j++) {
-
-								temp_1[a][j] = solution_1[a][j];
-
-							}
-
-						}
-						
-						else {
-							
-							for (int j = 0; j < R; j++) {
-
-								temp_1[a][j] = 500;
-
-							}
-							
-							
-							
-						}
-
-					}
-					// group_map.put(template_32, group_1_list);
-					dynamic_access.put(template_1, temp_1);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_2[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_2[a][j] = solution_2[a][j];
-
-							}
-
-						}
-						
-                        else {
-							
-							for (int j = 0; j < R; j++) {
-
-								temp_2[a][j] = 500;
-
-							}
-							
-							
-							
-						}
-						
-
-					}
-
-					dynamic_access.put(template_2, temp_2);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_3[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_3[a][j] = solution_3[a][j];
-
-							}
-
-						}
-						
-                       else {
-							
-							for (int j = 0; j < R; j++) {
-
-								temp_3[a][j] = 500;
-
-							}
-							
-							
-							
-						}
-
-					}
-
-					dynamic_access.put(template_3, temp_3);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_4[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_4[a][j] = solution_4[a][j];
-
-							}
-
-						}
-						
-               
-
-					}
-
-					dynamic_access.put(template_4, temp_4);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_5[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_5[a][j] = solution_5[a][j];
-
-							}
-
-						}
-                     
-
-					}
-
-					dynamic_access.put(template_5, temp_5);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_6[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_6[a][j] = solution_6[a][j];
-
-							}
-
-						}
-                    
-
-					}
-
-					dynamic_access.put(template_6, temp_6);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_7[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_7[a][j] = solution_7[a][j];
-
-							}
-
-						}
-						
-
-					}
-
-					dynamic_access.put(template_7, temp_7);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_8[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_8[a][j] = solution_8[a][j];
-
-							}
-
-						}
-					}
-
-					dynamic_access.put(template_8, temp_8);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_9[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_9[a][j] = solution_9[a][j];
-
-							}
-
-						}
-					}
-
-					dynamic_access.put(template_9, temp_9);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_10[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_10[a][j] = solution_10[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_10, temp_10);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_11[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_11[a][j] = solution_11[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_11, temp_11);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_12[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_12[a][j] = solution_12[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_12, temp_12);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_13[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_13[a][j] = solution_13[a][j];
-
-							}
-
-						}
-					}
-
-					dynamic_access.put(template_13, temp_13);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_14[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_14[a][j] = solution_14[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_14, temp_14);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_15[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_15[a][j] = solution_15[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_15, temp_15);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_16[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_16[a][j] = solution_16[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_16, temp_16);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_17[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_17[a][j] = solution_17[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_17, temp_17);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_18[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_18[a][j] = solution_18[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_18, temp_18);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_19[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_19[a][j] = solution_19[a][j];
-
-							}
-
-						}
-					}
-
-					dynamic_access.put(template_19, temp_19);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_20[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_20[a][j] = solution_20[a][j];
-
-							}
-
-						}
-					}
-
-					dynamic_access.put(template_20, temp_20);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_21[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_21[a][j] = solution_21[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_21, temp_21);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_22[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_22[a][j] = solution_22[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_22, temp_22);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_23[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_23[a][j] = solution_23[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_23, temp_23);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_24[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_24[a][j] = solution_24[a][j];
-
-							}
-
-						}
-					}
-
-					dynamic_access.put(template_24, temp_24);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_25[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_25[a][j] = solution_25[a][j];
-
-							}
-
-						}
-					}
-
-					dynamic_access.put(template_25, temp_25);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_26[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_26[a][j] = solution_26[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_26, temp_26);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_27[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_27[a][j] = solution_27[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_27, temp_27);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_28[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_28[a][j] = solution_28[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_28, temp_28);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_29[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_29[a][j] = solution_29[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_29, temp_29);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_30[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_30[a][j] = solution_30[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_30, temp_30);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_31[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_31[a][j] = solution_31[a][j];
-
-							}
-
-						}
-
-					}
-
-					dynamic_access.put(template_31, temp_31);
-
-					for (int a = 0; a < PATHNUM; a++) {
-						if (statu_32[a]) {
-
-							for (int j = 0; j < R; j++) {
-								temp_32[a][j] = solution_32[a][j];
-
-							}
-
-						}
-					}
-
-					dynamic_access.put(template_32, temp_32);
-
-					for (int temp_x = 0; temp_x < pop_num; temp_x++) {
-
-						for (int rr = 0; rr < R; rr++) {
-
-							temp_holder[temp_x][rr] = (x[temp_x][rr]);
-
-						}
-
-					}
-
-					/*
-					 * for (int row = 0; row < pop_num; row++) { for (int col = 0; col < R; col++) {
-					 * x[row][col] = 0; } }
-					 */
-					// group_map.put(template_32, group_1_list);
-					for (String group_key : group_map.keySet()) {
-
-						if (traverse_template.charAt(0) == group_key.charAt(0)) {
-
-							List<String> neighbor_holder = new ArrayList<String>();
-
-							neighbor_holder = group_map.get(group_key);
-
-							int index_getter = 0;
-
-							// for (int holders = 0; holders < neighbor_holder.size(); holders++) {
-
-							if (neighbor_holder.contains(traverse_template)) {
-
-								// if (neighbor_holder.get(holders).equals(traverse_template)) {
-
-								for (int i_1 = 0; i_1 < (dynamic_access.get(traverse_template)).length; i_1++) {
-
-									if (index_getter < pop_num) {
-
-										// for (int dimz = 0; dimz < (dynamic_access
-										// .get(traverse_template)[i_1]).length; dimz++) {
-
-
-											for (int dimz = 0; dimz < (dynamic_access
-													.get(traverse_template)[i_1]).length; dimz++) {
-
-												x[index_getter][dimz] = dynamic_access
-														.get(traverse_template)[i_1][dimz];
-
-											}
-									
-
-									}
-
-									index_getter++;
-								}
-
-								break;
-							}
-
-							for (int holder = 0; holder < neighbor_holder.size(); holder++) {
-
-								if (!(neighbor_holder.get(holder).equals(traverse_template))) {
-
-									String tempo = (neighbor_holder.get(holder));
-
-									for (int i_2 = 0; i_2 < (dynamic_access.get(tempo)).length; i_2++) {
-
-										// index_getter++;
-
-										if (index_getter < pop_num) {
-
-												for (int dimz = 0; dimz < (dynamic_access
-														.get(tempo)[i_2]).length; dimz++) {
-
-													x[index_getter][dimz] = dynamic_access.get(tempo)[i_2][dimz];
-
-												}
-											
-										}
-										index_getter++;
-									}
-
-								}
-							}
-							/*
-							 * if (index_getter < pop_num) {
-							 * 
-							 * int intg = index_getter;
-							 * 
-							 * for (int temp_t = 0; temp_t < pop_num; temp_t++) {
-							 * 
-							 * intg++;
-							 * 
-							 * if (intg < pop_num) {
-							 * 
-							 * for (int rr_ = 0; rr_ < R; rr_++) {
-							 * 
-							 * x[intg][rr_] = temp_holder[temp_t][rr_];
-							 * 
-							 * } } } }
-							 */
-
-							break;
-						}
-
-					}
-
-					// }
-				}
-
-				long start_time = System.currentTimeMillis();
-				long wait_time = 9375;
-				long end_time = start_time + wait_time;
-
-				while ((System.currentTimeMillis() < end_time) && start_big_time < end_main_time) // not
-
-				{
-
-					for (int i = 0; i < pop_num; i++) // Generate a new test case (crossover&mutation)
-					{
-
-						int k1 = (int) Math.floor(Math.random() * pop_num); // must not be same as parent
-						// execute this code while K1 = i
-						while (k1 == i)
-
-							k1 = (int) Math.floor(Math.random() * pop_num);
-
-						int k2 = (int) Math.floor(Math.random() * pop_num);
-
-						while (k2 == i || k2 == k1) // must not be same as parent
-
-							k2 = (int) Math.floor(Math.random() * pop_num);
-
-						int jrand = (int) (Math.random() * R);
-
-						for (int j = 0; j < R; j++) {
-
-							// v[i][j] = (int) Math.round(Math.abs(x[i][j] + F * (x[k1][j] - x[k2][j]))); //
-							// parent
-							v[i][j] = (int) ((x[i][j] + F * (x[k1][j] - x[k2][j])));
-
-							if (Math.random() <= Pc && j != jrand)
-
-								v[i][j] = x[i][j];
-
-							if (v[i][j] > ub[j] || v[i][j] < lb[j]) {
-								// double r01 = Math.random();
-
-								v[i][j] = (int) (Math.random() * ((ub[j] - lb[j]) + 1)) + lb[j];
-							}
-							// //("v[i][j]" + v[i][j]);
-
-						}
-
-						// case_num[run] = case_num[run] + 1;
-
-						// total_case_num[run] = total_case_num[run] + 1;
-
-						getfinalpath = pathnum(v[i]);
-
-						traverse_1(getfinalpath, i);
-					} //
-
-					try {
-
-						if (pathcounter.get(traverse_template) < PATHNUM) {
-
-							if ((PATHNUM - (pathcounter.get(traverse_template)) == 1)) { // if only one uncovered path
-
-								// break;
-
-								// infeasible_path++;
-
-								LinkedHashMap<String, Double> single_objective = new LinkedHashMap<String, Double>();
-								// //("only one uncovered>>>>");
-								double par_obj;
-
-								double child_obj;
-
-								for (int i = 0; i < pop_num; i++) {
-
-									ArrayList<Double> fitnessx_ = new ArrayList<Double>();
-									// align benchmark function to template to evaluate
-
-									fitnessx_ = benchmarkfunction(x[i], traverse_template);
-
-									// row_getter.put(offspring_population.get(get_row), row_fitter);
-									par_obj = fitnessx_.get(0);
-									// offspring_singleobjective
-
-									double obj_par = par_obj;
-
-									ArrayList<Double> fitnessv_ = new ArrayList<Double>();
-
-									fitnessv_ = benchmarkfunction(v[i], traverse_template);
-
-									child_obj = fitnessv_.get(0);
-
-									double obj_ch = child_obj;
-
-									if (obj_ch < obj_par) {
-
-										single_objective.put(("child" + " " + i), obj_ch);
-
-									}
-
-									else if (obj_ch > obj_par) {
-
-										single_objective.put(("parent" + " " + i), obj_par);
-
-									}
-
-									// if (obj_par == obj_ch)
-									else {
-
-										single_objective.put(("parent" + " " + i), obj_par);
-										single_objective.put(("child" + " " + i), obj_ch);
-
-									}
-
-								}
-
-								// double row_fitter = row_fit;
-
-								Map<String, Double> result_ = single_objective.entrySet().stream()
-										.sorted(Map.Entry.comparingByValue())
-										.collect(toMap(Map.Entry::getKey, Map.Entry::getValue,
-												(oldValue, newValue) -> oldValue, LinkedHashMap::new));
-
-								Iterator<Map.Entry<String, Double>> iteration_ = result_.entrySet().iterator();
-
-								while (iteration_.hasNext()) {
-
-									Map.Entry<String, Double> entry = iteration_.next();
-
-									if (single_population.size() < pop_num) {
-										single_population.add(entry.getKey());
-									}
-
-								}
-
-								String updated_id;
-
-								int updated_val;
-
-								// int rem;
-
-								for (int pop = 0; pop < single_population.size(); pop++) {
-
-									if (pop == 50) {
-										break;
-									}
-
-									String[] updated_pop = (single_population.get(pop).split(" "));
-
-									updated_id = updated_pop[0];
-									updated_val = Integer.parseInt(updated_pop[1]);
-
-									if (updated_id.equals("parent")) {
-										for (int update_parent = 0; update_parent < R; update_parent++) {
-											// x[i][j] = v[i][j] ;
-
-											x[pop][update_parent] = x[updated_val][update_parent];
-										}
-									}
-
-									if (updated_id.equals("child")) {
-										for (int update_child = 0; update_child < R; update_child++) {
-											// x[i][j] = v[i][j] ;
-
-											x[pop][update_child] = v[updated_val][update_child];
-										}
-									}
-
-								}
-
-								single_population.clear();
-								// Cycle[run]++;
-								break;
-							}
-
-							else {
-
-								for (int i = 0; i < pop_num; i++) {
-
-									ArrayList<Double> fitness_objectives_temporary_x = new ArrayList<Double>();
-									// align benchmark function to template to evaluate
-
-									fitness_objectives_temporary_x = benchmarkfunction(x[i], traverse_template);
-
-									// offspring_population.add("parent" + " " + i);
-
-									// combined_maps.put("parent" + " " + i, fitness_objectives_temporary_x);
-
-									// ArrayList<Double> fitnessv = new ArrayList<Double>();
-
-									ArrayList<Double> fitness_objectives_temporary_v = new ArrayList<Double>();
-
-									fitness_objectives_temporary_v = benchmarkfunction(v[i], traverse_template);
-
-									// objective_size = fitness_objectives_temporary_v.size();
-
-									// offspring_population.add("child" + " " + i);
-
-									// fitness_nonsimple1.put("child" + " " + i,
-									// fitness_objectives_temporary_v);
-									// combined_maps.put("child" + " " + i, fitness_objectives_temporary_v);
-
-									// double non_simplexx;
-									// double non_simplevv
-									// //(fitness_objectives_temporary_v);
-
-									int returned_comparison_par;
-
-									returned_comparison_par = dominace_Comparison(fitness_objectives_temporary_x,
-											fitness_objectives_temporary_v);
-
-									if (returned_comparison_par == -1) { // Solution i dominates child
-										offspring_population.add("parent" + " " + i);
-
-										// fitness_nonsimple2.put("parent" + " " + i,
-										// fitness_objectives_temporary_x);
-										combined_maps.put("parent" + " " + i, fitness_objectives_temporary_x);
-									} // if
-									else if (returned_comparison_par == 1) { // child dominates
-										offspring_population.add("child" + " " + i);
-
-										// fitness_nonsimple2.put("child" + " " + i,
-										// fitness_objectives_temporary_v);
-										combined_maps.put("child" + " " + i, fitness_objectives_temporary_v);
-									} // else if
-									else { // the two solutions are non-dominated
-
-										// fitness_nonsimple2.put("child" + " " + i,
-										// fitness_objectives_temporary_v);
-
-										offspring_population.add("parent" + " " + i);
-										offspring_population.add("child" + " " + i);
-										// fitness_nonsimple2.put("parent" + " " + i,
-										// fitness_objectives_temporary_x);
-										combined_maps.put("parent" + " " + i, fitness_objectives_temporary_x);
-										combined_maps.put("child" + " " + i, fitness_objectives_temporary_v);
-									} // else
-
-								}
-
-								/// LinkedHashMap<String, Double> row_getter = new LinkedHashMap<String,
-								/// Double>();
-
-								// int cols = (PATHNUM - (pathcounter.get(traverse_template)));
-
-								int column_size = (objective_size);
-
-								double[][] offspring_fitness_full = new double[offspring_population
-										.size()][column_size];
-
-								// String[] fit_obj;
-								int updates = 0;
-
-								while (updates < offspring_population.size()) {
-
-									ArrayList<Double> fitness_objectives_updated = new ArrayList<Double>();
-
-									fitness_objectives_updated
-											.addAll(combined_maps.get(offspring_population.get(updates)));
-
-									for (int ups = 0; ups < fitness_objectives_updated.size(); ups++) {
-
-										offspring_fitness_full[updates][ups] = fitness_objectives_updated.get(ups);
-
-									}
-									fitness_objectives_updated.clear();
-
-									updates++;
-
-								}
-
-								ArrayList<String> best_column = new ArrayList<String>();
-
-								String test_case;
-								double fit_rowfit;
-
-								// combined_population_backup
-								int fronts = 0;
-
-								LinkedHashMap<String, Double> row_getter = new LinkedHashMap<String, Double>();
-
-								ArrayList<Integer> colum_counter = new ArrayList<Integer>();
-
-								// //("Did we get here--21");
-
-								/// -while (!combined_population_list.isEmpty()) {}
-
-								int added_columns = 0;
-
-								while (added_columns < offspring_population.size()) {
-
-									if (colum_counter.size() == column_size) {
-
-										break;
-
-									}
-
-									int colums = 0;
-
-									while (colums < column_size) {
-
-										if (colum_counter.contains(colums)) {
-
-											continue;
-
-											// check if column size counter == objective size
-
-											// and break out the main while loop
-
-										}
-
-										for (int get_row = 0; get_row < (offspring_population.size()); get_row++) {
-
-											fit_rowfit = (offspring_fitness_full[get_row][colums]);
-
-											row_getter.put(offspring_population.get(get_row), fit_rowfit);
-
-										}
-
-										// //("Did we get here--8");
-
-										Map<String, Double> result = row_getter.entrySet().stream()
-												.sorted(Map.Entry.comparingByValue())
-												.collect(toMap(Map.Entry::getKey, Map.Entry::getValue,
-														(oldValue, newValue) -> oldValue, LinkedHashMap::new));
-										// //("Map yino" +result );
-
-										Iterator<Map.Entry<String, Double>> best_col = result.entrySet().iterator();
-
-										while (best_col.hasNext()) {
-
-											Map.Entry<String, Double> entry = best_col.next();
-
-											test_case = entry.getKey();
-
-											if (!best_column.contains(test_case)) {
-
-												best_column.add(test_case);
-
-												setrank1.put(test_case, fronts);
-
-												added_columns++;
-												// combined_population_list.remove(test_case);
-
-												colum_counter.add(colums);
-
-												break;
-											}
-
-										}
-
-										result.clear();
-										row_getter.clear();
-										colums++;
-
-									}
-
-									fronts++;
-
-								}
-
-								if (!offspring_population.isEmpty()) {
-
-									for (int get_row = 0; get_row < (offspring_population.size()); get_row++) {
-
-										setrank1.put(offspring_population.get(get_row), fronts);
-
-									}
-
-								}
-
-								// //("Did we get here--22");
-
-								// //("Front count" +fronts);
-
-								Map<Integer, ArrayList<String>> reverseMap = new HashMap<>();
-
-								for (Map.Entry<String, Integer> entry : setrank1.entrySet()) {
-									if (!reverseMap.containsKey(entry.getValue())) {
-										reverseMap.put(entry.getValue(), new ArrayList<>());
-									}
-									ArrayList<String> keys = reverseMap.get(entry.getValue());
-									keys.add(entry.getKey());
-									reverseMap.put(entry.getValue(), keys);
-								}
-
-								// //("reverse map: "+reverseMap.size());
-
-								for (int key_ss : reverseMap.keySet()) {
-
-									List<String> front_list = new ArrayList<String>();
-
-									front_list.addAll(reverseMap.get(key_ss));
-
-									for (int next_front = 0; next_front < front_list.size(); next_front++) {
-
-										updated_population.add(front_list.get(next_front));
-									}
-
-								}
-
-								// //("check size " + updated_population.size());
-
-								String updated_id;
-
-								int updated_val;
-
-								for (int pop = 0; pop < updated_population.size(); pop++) {
-
-									if (pop == 50) {
-
-										break;
-									}
-
-									String[] updated_pop = (updated_population.get(pop).split(" "));
-									updated_id = updated_pop[0];
-									updated_val = Integer.parseInt(updated_pop[1]);
-
-									if (updated_id.equals("parent")) {
-										for (int update_parent = 0; update_parent < R; update_parent++) {
-											// x[i][j] = v[i][j] ;
-
-											x[pop][update_parent] = x[updated_val][update_parent];
-										}
-									}
-									if (updated_id.equals("child")) {
-										for (int update_child = 0; update_child < R; update_child++) {
-											// x[i][j] = v[i][j] ;
-
-											x[pop][update_child] = v[updated_val][update_child];
-										}
-									}
-
-								}
-
-							}
-						}
-					} catch (IndexOutOfBoundsException e) {
-
-					}
-
-					updated_population.clear();
-					offspring_population.clear();
-					offspring_population2.clear();
-					setrank1.clear();
-					setrank2.clear();
-					setrank3.clear();
-					combined_maps.clear();
-					single_population.clear();
-
-					/*
-					 * while ((end_time - System.currentTimeMillis()) >= 0) {
-					 * 
-					 * 
-					 * 
-					 * 
-					 * }
-					 */
-				}
-
-			}
-			// //(totalpathcounter * 100 / TOTAL_PATHNUM);
-			coverage[run] = totalpathcounter * 100 / TOTAL_PATHNUM; // percentage of
-			// paths covered per run
-			average_coverage_count[run] = totalpathcounter;
-
-			// //("Path coverage=" + coverage[run] + "%");
-           
 			Bug_data[run] = bug_one_;
-			
-			//timer.cancel();
+
 			run++;
 		}
 
-		for (
-
-				int a = 0; a < 16; a++) {
+		for (int a = 0; a < 16; a++) {
 
 			for (int j = 0; j < RUN; j++) {
 
@@ -1837,31 +575,23 @@ public class Ktgde3{
 			}
 
 		}
-		
-	try {	
-		FileOutputStream fos_all_ = new FileOutputStream(bug_report);
-		BufferedWriter bw_all_ = new BufferedWriter(new OutputStreamWriter(fos_all_));
 
-		for (int j = 0; j < RUN; j++) {
+		try {
+			FileOutputStream fos_all_ = new FileOutputStream(bug_report);
+			BufferedWriter bw_all_ = new BufferedWriter(new OutputStreamWriter(fos_all_));
 
-			bw_all_.write(Bug_data[j]); // write to file key is the data
-			bw_all_.newLine();
+			for (int j = 0; j < RUN; j++) {
 
+				bw_all_.write(Bug_data[j]); // write to file key is the data
+				bw_all_.newLine();
+
+			}
+
+			bw_all_.close();
 		}
 
-		bw_all_.close();
-	}
-		/*
-		 * for (int a = 0; a < 16; a++) {
-		 * 
-		 * for (int j = 0; j < RUN; j++) {
-		 * 
-		 * System.out.print(convergencegraph[a][j] + " "); } //();
-		 * 
-		 * }
-		 */
-		 catch (Exception e) {
-			//(e);
+		catch (Exception e) {
+			// (e);
 		}
 
 	}
@@ -1909,8 +639,6 @@ public class Ktgde3{
 		int a4 = trix[0]; // a4 will hold the values in the individual x
 		int x1 = 0;
 
-		// max = a4[0]; // set max value to the first element of the array
-
 		for (int j = 0; j < 10; j++) {
 
 			if (a4 % 2 == 0) {
@@ -1926,26 +654,18 @@ public class Ktgde3{
 
 				// truth_table_visit[0][j] = false;
 				truth_table_visit[1][j] = true;
-				// max = a4[j];
-				// truth_table_visit[1][j] = true;
-				// false_count++;
-				// false_table_visit[1][j] = true;
+
 				x1 += 2;
 			}
 
-		
 		}
-		
-		
-		if(((x1 % 2 ) != (a4 % 2))){
-			  
-			 bugcount = bugcount+1;
-		  }
-		
-		
-	////("bug found "+bugcount);
-		
-		
+
+		// System.out.println(a4);
+
+		if (((x1 % 2) != (a4 % 2))) {
+
+			bugcount = bugcount + 1;
+		}
 
 		for (int j = 0; j < 10; j++) { // align the visits to form the correct traversed path
 
@@ -1962,11 +682,11 @@ public class Ktgde3{
 
 		finalpath = stringBuilder.toString();
 		// return finalpath;
-		
+
 		if (bugcount >= 1) {
-			
-			if (!bug_one) {
-				
+
+			// if (!bug_one) {
+
 			bugrecord = 1;
 
 			buggypath = finalpath;
@@ -1975,10 +695,10 @@ public class Ktgde3{
 
 			bug_one_ = "run: " + " " + run + " " + "bug count: " + bugcount + " " + "path:   " + buggypath + " "
 					+ "test input:  " + " (" + input + ")";
+			// System.out.println("otay");
 			bug_one = true;
-		}
-			
-		
+			// }
+
 		}
 
 		return finalpath; // path traversed by input/test data(x) : capture its id
@@ -2013,20 +733,10 @@ public class Ktgde3{
 
 		// double matched_percentage = 0.0;
 		int max1;
-		// double unwinding1 = 0.0;
-		// double unwinding2 = 0.0;;
-		// double unwinding1 = 0.0;
-		// double unwinding2 = 0.0;
+
 		double simple_unwinding = 0.0;
 
 		int max2;
-		// int[] a5 = new int[R];
-		// int[] a6 = new int[R];
-		//fitness_matrix[0][0] = Double.MAX_VALUE;
-		//fitness_matrix[1][0] = Double.MAX_VALUE;
-		// total_violation = 0.0;
-		// Unmatched_branch_node_1 = 0;
-		// total_1 = 0.0;
 
 		int x1 = 0;
 		int a5 = trix[0];
@@ -2106,13 +816,10 @@ public class Ktgde3{
 
 				// max = a4[j];
 				benchmark_table_visit[1][j] = true;
-				// false_count++;
-				// false_table_visit[1][j] = true;
 
 			}
 
 		}
-		// construct traversed vertex string
 
 		for (int j = 0; j < 10; j++) {
 
@@ -2150,10 +857,7 @@ public class Ktgde3{
 
 				double Unmatched_branch_node_a = 0.0;
 				double Unmatched_branch_node_b = 0.0;
-				// traversed_violation = strLine_non.substring(strLine_non.length() - 5);
 
-				// int index = 0;
-				// double unwinding2 = 0.0;
 				for (int i_1 = 0; i_1 < 10; i_1++) {
 
 					if (final_vertex_path.charAt(i_1) != strLine_non_simple.charAt(i_1)) {
@@ -2197,7 +901,7 @@ public class Ktgde3{
 		}
 	}
 
-	public static void init_Template() throws IOException {
+	public static void groupingPaths() throws IOException {
 		FileOutputStream fos_all = new FileOutputStream(allpaths);
 		BufferedWriter bw_all = new BufferedWriter(new OutputStreamWriter(fos_all));
 
@@ -2918,6 +1622,36 @@ public class Ktgde3{
 		bw_32.close();
 	}
 
+	public static void neighborset(LinkedHashMap<String, List<String>> group_map1) { // create neighbor sets
+
+		List<String> neighbor_0 = new ArrayList<String>();
+		List<String> neighbor_1 = new ArrayList<String>();
+
+		for (int gr = 0; gr < groupss_0.length; gr++) {
+
+			neighbor_0.add(groupss_0[gr]);
+
+		} // populate neighbors starting with 0
+
+		for (int gr_1 = 0; gr_1 < groupss_1.length; gr_1++) {
+
+			neighbor_1.add(groupss_1[gr_1]);
+
+		} // populate neighbors starting with 1
+
+		List<String> group_0_list = new ArrayList<String>(); // aaa //template_1
+		List<String> group_1_list = new ArrayList<String>(); // bbb template_22
+
+		group_0_list.addAll(neighbor_0);
+
+		group_map1.put(template_1, group_0_list);
+
+		group_1_list.addAll(neighbor_1);
+
+		group_map1.put(template_32, group_1_list);
+
+	}
+
 	public static void reset_All() {
 		// clear all the maps for next run and update them
 		paths.clear();
@@ -3007,6 +1741,1139 @@ public class Ktgde3{
 			br_.close();
 		} catch (Exception e) {
 		}
+
+	}
+
+	/*
+	 * LinkedHashMap<String, List<Double>> fitnessmaps = new LinkedHashMap<String,
+	 * List<Double>>(); LinkedHashMap<String, List<Double>> fitnessmaps1 = new
+	 * LinkedHashMap<String, List<Double>>(); LinkedHashMap<String, List<Double>>
+	 * fitnessmaps2 = new LinkedHashMap<String, List<Double>>();
+	 * LinkedHashMap<String, List<Double>> fitnessmaps3 = new LinkedHashMap<String,
+	 * List<Double>>();
+	 * 
+	 * LinkedHashMap<String, Integer> setrank1 = new LinkedHashMap<String,
+	 * Integer>(); LinkedHashMap<String, Integer> setrank2 = new
+	 * LinkedHashMap<String, Integer>();
+	 * 
+	 * LinkedHashMap<String, Integer> setrank3 = new LinkedHashMap<String,
+	 * Integer>();
+	 * 
+	 * List<String> updated_population = new ArrayList<String>();
+	 * 
+	 * List<String> offspring_population = new ArrayList<String>(); List<String>
+	 * offspring_population2 = new ArrayList<String>();
+	 * 
+	 * List<String> single_population = new ArrayList<String>();
+	 */
+
+	public static void reuse_archivedsolutions(LinkedHashMap<String, Boolean> temporary_path_holder1,
+			Map<String, int[][]> dynamic_access1,
+
+			String traverse_template1, LinkedHashMap<String, Boolean> evaluated_status1,
+			LinkedHashMap<String, List<String>> group_map1,
+
+			List<String> single_population1, List<String> updated_population1, List<String> offspring_population1,
+			LinkedHashMap<String, Integer> setrank1
+
+	) {
+
+		for (int iterator = 0; iterator < 32; iterator++) { // iterator of all templates // checks to perform // is
+			// maximum id the group number. Here I take only one group for test purposes
+			// only // it already evaluated
+			temporary_path_holder1.clear();
+			dynamic_access1.clear();
+
+			int value;
+			String minKey = " ";
+			// String tempss_1 = " ";
+			int minValue = 0;
+
+			int count = 0;
+
+			Iterator<Map.Entry<String, Boolean>> iter = evaluated_status1.entrySet().iterator();
+
+			while (iter.hasNext()) {
+
+				Map.Entry<String, Boolean> entry = iter.next();
+
+				if (entry.getValue() == true) {
+
+					iter.remove();
+
+				}
+
+			}
+
+			for (String key : evaluated_status1.keySet()) {
+				count++;
+
+				if (count == 1) {
+
+					minKey = key;
+					minValue = (pathcounter.get(key));
+
+					break;
+				}
+			}
+
+			int counters = 0;
+
+			for (String key6 : evaluated_status.keySet()) {
+
+				counters++;
+
+				if (counters == 1) {
+
+					continue;
+				}
+
+				else {
+
+					// tempss_1 = key6;
+					value = pathcounter.get(key6);
+
+					if (value > minValue) {
+
+						minValue = value;
+						minKey = key6;
+					}
+				}
+
+			}
+
+			traverse_template1 = minKey;
+
+			evaluated_status.put(traverse_template1, true);
+
+			try {
+				File fstream_temporary = new File(location + traverse_template1 + ".txt");
+				FileReader fileReader_ = new FileReader(fstream_temporary);
+				BufferedReader br_ = new BufferedReader(fileReader_);
+				String strLine_temporary;
+
+				while ((strLine_temporary = br_.readLine()) != null) {
+
+					// read files into map
+
+					if (!paths.get(strLine_temporary)) {
+
+						temporary_path_holder1.put(strLine_temporary, false);
+					}
+				}
+				br_.close();
+			}
+
+			catch (Exception e) {
+			}
+
+			if (iterator > 0) {
+
+				for (int a = 0; a < PATHNUM; a++) {
+
+					if (statu_1[a]) {
+
+						for (int j = 0; j < R; j++) {
+
+							temp_1[a][j] = solution_1[a][j];
+
+						}
+
+					}
+
+					else {
+
+						for (int j = 0; j < R; j++) {
+
+							temp_1[a][j] = 500;
+
+						}
+
+					}
+
+				}
+				// group_map.put(template_32, group_1_list);
+				dynamic_access1.put(template_1, temp_1);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_2[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_2[a][j] = solution_2[a][j];
+
+						}
+
+					}
+
+					else {
+
+						for (int j = 0; j < R; j++) {
+
+							temp_2[a][j] = 500;
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_2, temp_2);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_3[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_3[a][j] = solution_3[a][j];
+
+						}
+
+					}
+
+					else {
+
+						for (int j = 0; j < R; j++) {
+
+							temp_3[a][j] = 500;
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_3, temp_3);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_4[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_4[a][j] = solution_4[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_4, temp_4);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_5[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_5[a][j] = solution_5[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_5, temp_5);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_6[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_6[a][j] = solution_6[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_6, temp_6);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_7[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_7[a][j] = solution_7[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_7, temp_7);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_8[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_8[a][j] = solution_8[a][j];
+
+						}
+
+					}
+				}
+
+				dynamic_access1.put(template_8, temp_8);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_9[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_9[a][j] = solution_9[a][j];
+
+						}
+
+					}
+				}
+
+				dynamic_access1.put(template_9, temp_9);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_10[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_10[a][j] = solution_10[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_10, temp_10);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_11[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_11[a][j] = solution_11[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_11, temp_11);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_12[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_12[a][j] = solution_12[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_12, temp_12);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_13[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_13[a][j] = solution_13[a][j];
+
+						}
+
+					}
+				}
+
+				dynamic_access1.put(template_13, temp_13);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_14[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_14[a][j] = solution_14[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_14, temp_14);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_15[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_15[a][j] = solution_15[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_15, temp_15);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_16[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_16[a][j] = solution_16[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_16, temp_16);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_17[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_17[a][j] = solution_17[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_17, temp_17);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_18[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_18[a][j] = solution_18[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_18, temp_18);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_19[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_19[a][j] = solution_19[a][j];
+
+						}
+
+					}
+				}
+
+				dynamic_access1.put(template_19, temp_19);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_20[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_20[a][j] = solution_20[a][j];
+
+						}
+
+					}
+				}
+
+				dynamic_access1.put(template_20, temp_20);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_21[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_21[a][j] = solution_21[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_21, temp_21);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_22[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_22[a][j] = solution_22[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_22, temp_22);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_23[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_23[a][j] = solution_23[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_23, temp_23);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_24[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_24[a][j] = solution_24[a][j];
+
+						}
+
+					}
+				}
+
+				dynamic_access1.put(template_24, temp_24);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_25[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_25[a][j] = solution_25[a][j];
+
+						}
+
+					}
+				}
+
+				dynamic_access1.put(template_25, temp_25);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_26[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_26[a][j] = solution_26[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_26, temp_26);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_27[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_27[a][j] = solution_27[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_27, temp_27);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_28[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_28[a][j] = solution_28[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_28, temp_28);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_29[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_29[a][j] = solution_29[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_29, temp_29);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_30[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_30[a][j] = solution_30[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_30, temp_30);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_31[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_31[a][j] = solution_31[a][j];
+
+						}
+
+					}
+
+				}
+
+				dynamic_access1.put(template_31, temp_31);
+
+				for (int a = 0; a < PATHNUM; a++) {
+					if (statu_32[a]) {
+
+						for (int j = 0; j < R; j++) {
+							temp_32[a][j] = solution_32[a][j];
+
+						}
+
+					}
+				}
+
+				dynamic_access1.put(template_32, temp_32);
+
+				for (int temp_x = 0; temp_x < pop_num; temp_x++) {
+
+					for (int rr = 0; rr < R; rr++) {
+
+						temp_holder[temp_x][rr] = (x[temp_x][rr]);
+
+					}
+
+				}
+
+				/*
+				 * for (int row = 0; row < pop_num; row++) { for (int col = 0; col < R; col++) {
+				 * x[row][col] = 0; } }
+				 */
+				// group_map.put(template_32, group_1_list);
+				for (String group_key : group_map1.keySet()) {
+
+					if (traverse_template1.charAt(0) == group_key.charAt(0)) {
+
+						List<String> neighbor_holder = new ArrayList<String>();
+
+						neighbor_holder = group_map1.get(group_key);
+
+						int index_getter = 0;
+
+						// for (int holders = 0; holders < neighbor_holder.size(); holders++) {
+
+						if (neighbor_holder.contains(traverse_template1)) {
+
+							// if (neighbor_holder.get(holders).equals(traverse_template)) {
+
+							for (int i_1 = 0; i_1 < (dynamic_access.get(traverse_template1)).length; i_1++) {
+
+								if (index_getter < pop_num) {
+
+									// for (int dimz = 0; dimz < (dynamic_access
+									// .get(traverse_template)[i_1]).length; dimz++) {
+
+									if (dynamic_access.get(traverse_template1)[i_1][0] == 0
+											&& dynamic_access.get(traverse_template1)[i_1][1] == 0) {
+
+										continue;
+									}
+
+									else {
+
+										for (int dimz = 0; dimz < (dynamic_access1
+												.get(traverse_template1)[i_1]).length; dimz++) {
+
+											x[index_getter][dimz] = dynamic_access1.get(traverse_template1)[i_1][dimz];
+
+										}
+									}
+
+								}
+
+								index_getter++;
+							}
+
+							break;
+						}
+
+						for (int holder = 0; holder < neighbor_holder.size(); holder++) {
+
+							if (!(neighbor_holder.get(holder).equals(traverse_template1))) {
+
+								String tempo = (neighbor_holder.get(holder));
+
+								for (int i_2 = 0; i_2 < (dynamic_access1.get(tempo)).length; i_2++) {
+
+									// index_getter++;
+
+									if (index_getter < pop_num) {
+
+										for (int dimz = 0; dimz < (dynamic_access1.get(tempo)[i_2]).length; dimz++) {
+
+											x[index_getter][dimz] = dynamic_access1.get(tempo)[i_2][dimz];
+
+										}
+
+									}
+									index_getter++;
+								}
+
+							}
+						}
+
+						break;
+					}
+
+				}
+
+				// }
+			}
+
+			long start_big_time = System.currentTimeMillis();
+			long wait_main_time = 300000; // 5 minutes
+			long end_main_time = start_big_time + wait_main_time;
+
+			String getfinalpath2 = "";
+			mutationCrossover(start_big_time, end_main_time, getfinalpath2, lb, ub, traverse_template1,
+					single_population1, updated_population1, offspring_population1, setrank1
+
+			);
+
+		}
+
+	}
+
+	public static void mutationCrossover(long start_big_time1, long end_main_time2, String getfinalpath1, int[] lb1,
+			int[] ub1, String traverse_template2,
+
+			List<String> single_population2, List<String> updated_population2, List<String> offspring_population2,
+			LinkedHashMap<String, Integer> setrank2
+
+	) {
+
+		long start_time = System.currentTimeMillis();
+		long wait_time = 9375;
+		long end_time = start_time + wait_time;
+
+		while ((System.currentTimeMillis() < end_time) && start_big_time1 < end_main_time2) // not
+
+		{
+
+			for (int i = 0; i < pop_num; i++) // Generate a new test case (crossover&mutation)
+			{
+
+				int k1 = (int) Math.floor(Math.random() * pop_num); // must not be same as parent
+				// execute this code while K1 = i
+				while (k1 == i)
+
+					k1 = (int) Math.floor(Math.random() * pop_num);
+
+				int k2 = (int) Math.floor(Math.random() * pop_num);
+
+				while (k2 == i || k2 == k1) // must not be same as parent
+
+					k2 = (int) Math.floor(Math.random() * pop_num);
+
+				int jrand = (int) (Math.random() * R);
+
+				for (int j = 0; j < R; j++) {
+
+					// v[i][j] = (int) Math.round(Math.abs(x[i][j] + F * (x[k1][j] - x[k2][j]))); //
+					// parent
+					v[i][j] = (int) ((x[i][j] + F * (x[k1][j] - x[k2][j])));
+
+					if (Math.random() <= Pc && j != jrand)
+
+						v[i][j] = x[i][j];
+
+					if (v[i][j] > ub1[j] || v[i][j] < lb1[j]) {
+						// double r01 = Math.random();
+
+						v[i][j] = (int) (Math.random() * ((ub[j] - lb[j]) + 1)) + lb[j];
+					}
+					// //("v[i][j]" + v[i][j]);
+
+				}
+
+				getfinalpath1 = pathnum(v[i]);
+
+				traverse_1(getfinalpath1, i);
+			} //
+
+			try {
+				cornerSort(traverse_template2, single_population2, updated_population2, offspring_population2,
+						setrank2);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+	}
+
+	public static void cornerSort(String traverse_template3, List<String> single_population3,
+
+			List<String> updated_population3, List<String> offspring_population3,
+			LinkedHashMap<String, Integer> setrank3
+
+	) throws FileNotFoundException {
+
+		try {
+
+			if (pathcounter.get(traverse_template3) < PATHNUM) {
+
+				if ((PATHNUM - (pathcounter.get(traverse_template3)) == 1)) { // if only one uncovered path
+
+					LinkedHashMap<String, Double> single_objective = new LinkedHashMap<String, Double>();
+					// //("only one uncovered>>>>");
+					double par_obj;
+
+					double child_obj;
+
+					for (int i = 0; i < pop_num; i++) {
+
+						ArrayList<Double> fitnessx_ = new ArrayList<Double>();
+						// align benchmark function to template to evaluate
+
+						fitnessx_ = benchmarkfunction(x[i], traverse_template3);
+
+						// row_getter.put(offspring_population.get(get_row), row_fitter);
+						par_obj = fitnessx_.get(0);
+						// offspring_singleobjective
+
+						double obj_par = par_obj;
+
+						ArrayList<Double> fitnessv_ = new ArrayList<Double>();
+
+						fitnessv_ = benchmarkfunction(v[i], traverse_template3);
+
+						child_obj = fitnessv_.get(0);
+
+						double obj_ch = child_obj;
+
+						if (obj_ch < obj_par) {
+
+							single_objective.put(("child" + " " + i), obj_ch);
+
+						}
+
+						else if (obj_ch > obj_par) {
+
+							single_objective.put(("parent" + " " + i), obj_par);
+
+						}
+
+						// if (obj_par == obj_ch)
+						else {
+
+							single_objective.put(("parent" + " " + i), obj_par);
+							single_objective.put(("child" + " " + i), obj_ch);
+
+						}
+
+					}
+
+					// double row_fitter = row_fit;
+
+					Map<String, Double> result_ = single_objective.entrySet().stream()
+							.sorted(Map.Entry.comparingByValue()).collect(toMap(Map.Entry::getKey, Map.Entry::getValue,
+									(oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
+					Iterator<Map.Entry<String, Double>> iteration_ = result_.entrySet().iterator();
+
+					while (iteration_.hasNext()) {
+
+						Map.Entry<String, Double> entry = iteration_.next();
+
+						if (single_population3.size() < pop_num) {
+							single_population3.add(entry.getKey());
+						}
+
+					}
+
+					String updated_id;
+
+					int updated_val;
+
+					// int rem;
+
+					for (int pop = 0; pop < single_population3.size(); pop++) {
+
+						if (pop == 50) {
+							break;
+						}
+
+						String[] updated_pop = (single_population3.get(pop).split(" "));
+
+						updated_id = updated_pop[0];
+						updated_val = Integer.parseInt(updated_pop[1]);
+
+						if (updated_id.equals("parent")) {
+							for (int update_parent = 0; update_parent < R; update_parent++) {
+								// x[i][j] = v[i][j] ;
+
+								x[pop][update_parent] = x[updated_val][update_parent];
+							}
+						}
+
+						if (updated_id.equals("child")) {
+							for (int update_child = 0; update_child < R; update_child++) {
+								// x[i][j] = v[i][j] ;
+
+								x[pop][update_child] = v[updated_val][update_child];
+							}
+						}
+
+					}
+
+					single_population3.clear();
+
+				}
+
+				else {
+
+					// WEAK DOMINANCE RELATION
+
+					for (int i = 0; i < pop_num; i++) {
+
+						ArrayList<Double> fitness_objectives_temporary_x = new ArrayList<Double>();
+						// align benchmark function to template to evaluate
+
+						fitness_objectives_temporary_x = benchmarkfunction(x[i], traverse_template3);
+
+						ArrayList<Double> fitness_objectives_temporary_v = new ArrayList<Double>();
+
+						fitness_objectives_temporary_v = benchmarkfunction(v[i], traverse_template3);
+
+						int returned_comparison_par;
+
+						returned_comparison_par = dominace_Comparison(fitness_objectives_temporary_x,
+								fitness_objectives_temporary_v);
+
+						if (returned_comparison_par == -1) { // Solution i dominates child
+							offspring_population3.add("parent" + " " + i);
+
+							combined_maps.put("parent" + " " + i, fitness_objectives_temporary_x);
+						} // if
+						else if (returned_comparison_par == 1) { // child dominates
+							offspring_population3.add("child" + " " + i);
+
+							combined_maps.put("child" + " " + i, fitness_objectives_temporary_v);
+						} // else if
+						else { // the two solutions are non-dominated
+
+							offspring_population3.add("parent" + " " + i);
+							offspring_population3.add("child" + " " + i);
+
+							combined_maps.put("parent" + " " + i, fitness_objectives_temporary_x);
+							combined_maps.put("child" + " " + i, fitness_objectives_temporary_v);
+						} // else
+
+					}
+
+					int column_size = (objective_size);
+
+					double[][] offspring_fitness_full = new double[offspring_population3.size()][column_size];
+
+					// String[] fit_obj;
+					int updates = 0;
+
+					while (updates < offspring_population3.size()) {
+
+						ArrayList<Double> fitness_objectives_updated = new ArrayList<Double>();
+
+						fitness_objectives_updated.addAll(combined_maps.get(offspring_population3.get(updates)));
+
+						for (int ups = 0; ups < fitness_objectives_updated.size(); ups++) {
+
+							offspring_fitness_full[updates][ups] = fitness_objectives_updated.get(ups);
+
+						}
+						fitness_objectives_updated.clear();
+
+						updates++;
+
+					}
+
+					ArrayList<String> best_column = new ArrayList<String>();
+
+					String test_case;
+					double fit_rowfit;
+
+					// combined_population_backup
+					int fronts = 0;
+
+					LinkedHashMap<String, Double> row_getter = new LinkedHashMap<String, Double>();
+
+					ArrayList<Integer> colum_counter = new ArrayList<Integer>();
+
+					// //("Did we get here--21");
+
+					/// -while (!combined_population_list.isEmpty()) {}
+
+					int added_columns = 0;
+
+					while (added_columns < offspring_population3.size()) {
+
+						if (colum_counter.size() == column_size) {
+
+							break;
+
+						}
+
+						int colums = 0;
+
+						while (colums < column_size) {
+
+							if (colum_counter.contains(colums)) {
+
+								continue;
+
+							}
+
+							for (int get_row = 0; get_row < (offspring_population3.size()); get_row++) {
+
+								fit_rowfit = (offspring_fitness_full[get_row][colums]);
+
+								row_getter.put(offspring_population3.get(get_row), fit_rowfit);
+
+							}
+
+							// //("Did we get here--8");
+
+							Map<String, Double> result = row_getter.entrySet().stream()
+									.sorted(Map.Entry.comparingByValue()).collect(toMap(Map.Entry::getKey,
+											Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+							// //("Map yino" +result );
+
+							Iterator<Map.Entry<String, Double>> best_col = result.entrySet().iterator();
+
+							while (best_col.hasNext()) {
+
+								Map.Entry<String, Double> entry = best_col.next();
+
+								test_case = entry.getKey();
+
+								if (!best_column.contains(test_case)) {
+
+									best_column.add(test_case);
+
+									setrank3.put(test_case, fronts);
+
+									added_columns++;
+									// combined_population_list.remove(test_case);
+
+									colum_counter.add(colums);
+
+									break;
+								}
+
+							}
+
+							result.clear();
+							row_getter.clear();
+							colums++;
+
+						}
+
+						fronts++;
+
+					}
+
+					if (!offspring_population3.isEmpty()) {
+
+						for (int get_row = 0; get_row < (offspring_population3.size()); get_row++) {
+
+							setrank3.put(offspring_population3.get(get_row), fronts);
+
+						}
+
+					}
+
+					Map<Integer, ArrayList<String>> reverseMap = new HashMap<>();
+
+					for (Map.Entry<String, Integer> entry : setrank3.entrySet()) {
+						if (!reverseMap.containsKey(entry.getValue())) {
+							reverseMap.put(entry.getValue(), new ArrayList<>());
+						}
+						ArrayList<String> keys = reverseMap.get(entry.getValue());
+						keys.add(entry.getKey());
+						reverseMap.put(entry.getValue(), keys);
+					}
+
+					// //("reverse map: "+reverseMap.size());
+
+					for (int key_ss : reverseMap.keySet()) {
+
+						List<String> front_list = new ArrayList<String>();
+
+						front_list.addAll(reverseMap.get(key_ss));
+
+						for (int next_front = 0; next_front < front_list.size(); next_front++) {
+
+							updated_population3.add(front_list.get(next_front));
+						}
+
+					}
+
+					// //("check size " + updated_population.size());
+
+					String updated_id;
+
+					int updated_val;
+
+					for (int pop = 0; pop < updated_population3.size(); pop++) {
+
+						if (pop == 50) {
+
+							break;
+						}
+
+						String[] updated_pop = (updated_population3.get(pop).split(" "));
+						updated_id = updated_pop[0];
+						updated_val = Integer.parseInt(updated_pop[1]);
+
+						if (updated_id.equals("parent")) {
+							for (int update_parent = 0; update_parent < R; update_parent++) {
+								// x[i][j] = v[i][j] ;
+
+								x[pop][update_parent] = x[updated_val][update_parent];
+							}
+						}
+						if (updated_id.equals("child")) {
+							for (int update_child = 0; update_child < R; update_child++) {
+								// x[i][j] = v[i][j] ;
+
+								x[pop][update_child] = v[updated_val][update_child];
+							}
+						}
+
+					}
+
+				}
+			}
+		} catch (IndexOutOfBoundsException e) {
+
+		}
+
+		updated_population3.clear();
+		offspring_population3.clear();
+		setrank3.clear();
+
+		combined_maps.clear();
+		single_population3.clear();
+
+	}
+
+	public static void weakDominancerelation() {
 
 	}
 
@@ -7048,8 +6915,6 @@ public class Ktgde3{
 
 			// **************************************************************************//
 			try {
-				// Open the file/template with that id that is the first
-				// command line parameter
 
 				File file_31 = new File(location + "bbbba.txt");
 				FileReader fileReader_31 = new FileReader(file_31);
@@ -7107,8 +6972,7 @@ public class Ktgde3{
 		if (final_path_checker.startsWith(template_32)) { // if the traversed path_id is equal to "the template id"
 
 			try {
-				// Open the file/template with that id that is the first
-				// command line parameter
+
 				File file_32 = new File(location + "bbbbb.txt");
 				FileReader fileReader_32 = new FileReader(file_32);
 				BufferedReader br_32 = new BufferedReader(fileReader_32);
