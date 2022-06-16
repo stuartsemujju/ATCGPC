@@ -343,9 +343,9 @@ public class Ktgde3 {
 	@SuppressWarnings("unlikely-arg-type")
 	public static void main(String[] args) throws InterruptedException, ExecutionException, IOException {
 
-		int k = 10;
+		int k = 10; // the k-bounded number of iterations
 
-		char[] set = { 'a', 'b' };
+		char[] set = { 'a', 'b' }; // this program 2 simple routes, we denote them as a and b
 		char[] str = new char[k];
 
 		enumeratePaths(k, set, str, 0); // call function to generate the paths
@@ -890,8 +890,8 @@ public class Ktgde3 {
 
 	static void enumeratePaths(int k, char[] set, char[] str, int index) {
 		if (index == k) {
-			// //(new String(str));
-			paths.put(new String(str), false); // write all resulting paths to map..
+			
+			paths.put(new String(str), false); // add path to map
 
 		} else {
 			for (int i = 0; i < set.length; i++) {
@@ -901,7 +901,7 @@ public class Ktgde3 {
 		}
 	}
 
-	public static void groupingPaths() throws IOException {
+	public static void groupingPaths() throws IOException {  // this function organizes paths into groups
 		FileOutputStream fos_all = new FileOutputStream(allpaths);
 		BufferedWriter bw_all = new BufferedWriter(new OutputStreamWriter(fos_all));
 
