@@ -1,7 +1,10 @@
 To help othe researchers intergate our approach into their frameworks, we provide explanation of the code sections . Noe that the source code is not necessarily up to production quality as it would take alot of time and resources to build a production ready tool. However, for future work we plan to implement our approch in tool with a usable interface.
 
-The source code example provided is based on the instrumenataion program diamond_1-1.c. We explain the key functions of KT-GDE3. The functions can be fopund in the file Ktgde3.java
+The source code example provided is based on the instrumenataion program diamond_1-1.c.
 
+The file can be run in eclipse or any other IDE  supporting Java.
+
+We explain the key functions of KT-GDE3. The functions can be fopund in the file Ktgde3.java
 
 Note that parameter 1 ,..., parameter n  indicates the function has 1 to n  input parameters
 
@@ -23,7 +26,11 @@ mutationCrossover (parameter 1 , ... , parameter n ); Perform MutaTion and cross
 cornerSort(parameter 1 , ... , parameter n ); // call to function that first performs WEAK DOMINACE RELATION and then perfoms the CORNER-SORTING
 
 
+benchmarkfunction(parameter 1 , ... , parameter n) // call function to perform Fitness evaluation 
 
+pathnum (parameter 1 , ... , parameter n) //call to function that captures if bug is covered or not
 
+Note: Change location on line 189  -> static String location = "C:/Users/Stuart/Final/LPCF/Bench/"; // set location according to your file system
+ 
 
 For any further help, please reach out to me at :  stuartsemujju@gmail.com to assist you integrate our approach in your frameworks
